@@ -1,0 +1,102 @@
+-- Create Database 
+CREATE DATABASE Payroll_Management_system; 
+USE Payroll_Management_system; 
+ -- 1. Users (for login system) 
+CREATE TABLE users ( 
+id INT AUTO_INCREMENT PRIMARY KEY, 
+username VARCHAR(50) UNIQUE NOT NULL, 
+password VARCHAR(255) NOT NULL, 
+role ENUM('admin', 'employee') DEFAULT 'employee', 
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP 
+); -- 2. Employees 
+CREATE TABLE employees ( 
+id INT AUTO_INCREMENT PRIMARY KEY, 
+user_id INT, 
+full_name VARCHAR(100), 
+email VARCHAR(100), 
+phone VARCHAR(20), 
+address TEXT, 
+gender ENUM('Male', 'Female'), 
+join_date DATE, 
+status ENUM('Active', 'Inactive'), 
+FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL 
+); -- 3. Departments 
+CREATE TABLE departments ( 
+id INT AUTO_INCREMENT PRIMARY KEY, 
+name VARCHAR(100) NOT NULL, 
+description TEXT 
+); -- 4. Designations 
+CREATE TABLE designations ( 
+id INT AUTO_INCREMENT PRIMARY KEY, 
+title VARCHAR(100), 
+department_id INT, 
+base_salary DECIMAL(10,2), 
+FOREIGN KEY (department_id) REFERENCES departments(id) ON DELETE CASCADE 
+); 
+ -- 5. Attendance 
+CREATE TABLE attendance ( 
+id INT AUTO_INCREMENT PRIMARY KEY, 
+employee_id INT, 
+11  
+date DATE, 
+status ENUM('Present', 'Absent', 'Leave'), 
+check_in TIME, 
+check_out TIME, 
+FOREIGN KEY (employee_id) REFERENCES employees(id) ON DELETE CASCADE 
+); -- 6. Salary 
+CREATE TABLE salary ( 
+id INT AUTO_INCREMENT PRIMARY KEY, 
+employee_id INT, 
+month VARCHAR(20), 
+year INT, 
+basic DECIMAL(10,2), 
+allowance DECIMAL(10,2), 
+deductions DECIMAL(10,2), 
+net_pay DECIMAL(10,2), 
+generated_on DATE, 
+FOREIGN KEY (employee_id) REFERENCES employees(id) ON DELETE CASCADE 
+); -- 7. Allowances 
+CREATE TABLE allowances ( 
+id INT AUTO_INCREMENT PRIMARY KEY, 
+title VARCHAR(100), 
+amount DECIMAL(10,2) 
+); -- 8. Deductions 
+CREATE TABLE deductions ( 
+id INT AUTO_INCREMENT PRIMARY KEY, 
+title VARCHAR(100), 
+amount DECIMAL(10,2) 
+); -- 9. Leaves 
+CREATE TABLE leaves ( 
+id INT AUTO_INCREMENT PRIMARY KEY, 
+employee_id INT, 
+start_date DATE, 
+end_date DATE, 
+reason TEXT, 
+status ENUM('Pending', 'Approved', 'Rejected') DEFAULT 'Pending', 
+FOREIGN KEY (employee_id) REFERENCES employees(id) ON DELETE CASCADE 
+); -- 10. Payslips 
+CREATE TABLE payslips ( 
+id INT AUTO_INCREMENT PRIMARY KEY, 
+salary_id INT, 
+pdf_url VARCHAR(255), 
+12  
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
+FOREIGN KEY (salary_id) REFERENCES salary(id) ON DELETE CASCADE 
+); 
+ -- 1. Users 
+INSERT INTO users (username, password, role) VALUES 
+('admin_rahul', 'hashed_pass1', 'admin'), 
+('ravi_kumar', 'hashed_pass2', 'employee'), 
+('priya_sharma', 'hashed_pass3', 'employee'), 
+('amit_verma', 'hashed_pass4', 'employee'), 
+('neha_singh', 'hashed_pass5', 'employee'); 
+ -- 2. Employees 
+INSERT INTO employees (user_id, full_name, email, phone, address, gender, join_date, status) 
+VALUES 
+(2, 'Ravi Kumar', 'ravi.kumar@example.com', '9876543210', 'B-12, Sector 5, Delhi', 'Male', '2023- 
+01-10', 'Active'), 
+(3, 'Priya Sharma', 'priya.sharma@example.com', '9123456789', '45 MG Road, Mumbai', 'Female', 
+'2022-07-25', 'Active'), 
+(4, 'Amit Verma', 'amit.verma@example.com', '9988776655', '12 Park Street, Kolkata', 'Male', 
+'2023-11-01', 'Inactive'), 
+(5, 'Neha Singh', 'neha.singh@example.com', '9090909090', '3A Lake View, Bang
