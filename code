@@ -99,4 +99,65 @@ VALUES
 '2022-07-25', 'Active'), 
 (4, 'Amit Verma', 'amit.verma@example.com', '9988776655', '12 Park Street, Kolkata', 'Male', 
 '2023-11-01', 'Inactive'), 
-(5, 'Neha Singh', 'neha.singh@example.com', '9090909090', '3A Lake View, Bang
+(5, 'Neha Singh', 'neha.singh@example.com', '9090909090', '3A Lake View, Bangalore', 'Female', 
+'2024-02-14', 'Active'), 
+(NULL, 'Suresh Mehta', 'suresh.mehta@example.com', '9112233445', 'Gandhi Nagar, Jaipur', 
+'Male', '2023-03-30', 'Inactive'); 
+ -- 3. Departments 
+INSERT INTO departments (name, description) VALUES 
+('Human Resources', 'Handles employee relations and recruitment.'), 
+('Finance', 'Responsible for payroll and accounts.'), 
+('Information Technology', 'Manages software and systems.'), 
+('Sales', 'Drives revenue and customer relations.'), 
+('Administration', 'Handles office operations and support.'); 
+ -- 4. Designations 
+INSERT INTO designations (title, department_id, base_salary) VALUES 
+('HR Executive', 1, 35000.00), 
+('Finance Analyst', 2, 40000.00), 
+('Software Developer', 3, 55000.00), 
+('Sales Manager', 4, 60000.00), 
+('Admin Officer', 5, 30000.00); 
+ -- 5. Attendance 
+INSERT INTO attendance (employee_id, date, status, check_in, check_out) VALUES 
+(1, '2025-05-01', 'Present', '09:00:00', '17:00:00'), 
+(2, '2025-05-01', 'Present', '09:15:00', '17:30:00'), 
+(3, '2025-05-01', 'Leave', NULL, NULL), 
+13  
+(4, '2025-05-01', 'Absent', NULL, NULL), 
+(1, '2025-05-02', 'Present', '09:05:00', '17:10:00'); 
+ -- 6. Salary 
+INSERT INTO salary (employee_id, month, year, basic, allowance, deductions, net_pay, 
+generated_on) VALUES 
+(1, 'April', 2025, 35000.00, 5000.00, 1000.00, 39000.00, '2025-04-30'), 
+(2, 'April', 2025, 40000.00, 6000.00, 500.00, 45500.00, '2025-04-30'), 
+(3, 'April', 2025, 55000.00, 4000.00, 2000.00, 57000.00, '2025-04-30'), 
+(4, 'April', 2025, 60000.00, 5500.00, 3000.00, 62500.00, '2025-04-30'), 
+(5, 'April', 2025, 30000.00, 3000.00, 800.00, 32200.00, '2025-04-30'); 
+ -- 7. Allowances 
+INSERT INTO allowances (title, amount) VALUES 
+('Transport Allowance', 2000.00), 
+('HRA', 3000.00), 
+('Medical Allowance', 1000.00), 
+('Special Bonus', 1500.00), 
+('Internet Reimbursement', 500.00); 
+ -- 8. Deductions 
+INSERT INTO deductions (title, amount) VALUES 
+('PF', 1200.00), 
+('ESI', 800.00), 
+('Late Penalty', 300.00), 
+('Advance Recovery', 1000.00), 
+('Tax Deduction', 1500.00); 
+ -- 9. Leaves 
+INSERT INTO leaves (employee_id, start_date, end_date, reason, status) VALUES 
+(1, '2025-04-15', '2025-04-16', 'Medical', 'Approved'), 
+(2, '2025-04-20', '2025-04-22', 'Personal Work', 'Pending'), 
+(3, '2025-04-10', '2025-04-12', 'Vacation', 'Approved'), 
+(4, '2025-04-25', '2025-04-25', 'Family Emergency', 'Rejected'), 
+(5, '2025-04-05', '2025-04-06', 'Festival', 'Approved'); 
+ -- 10. Payslips 
+INSERT INTO payslips (salary_id, pdf_url) VALUES 
+(1, 'payslips/1_apr_2025.pdf'), 
+(2, 'payslips/2_apr_2025.pdf'), 
+(3, 'payslips/3_apr_2025.pdf'), 
+(4, 'payslips/4_apr_2025.pdf'), 
+(5, 'payslips/5_apr_2025.pdf'); 
