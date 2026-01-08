@@ -1,0 +1,14 @@
+DELIMITER $$ 
+ 
+CREATE TRIGGER trg_set_default_status 
+BEFORE INSERT ON payroll 
+FOR EACH ROW 
+BEGIN 
+IF NEW.status IS NULL THEN 
+SET NEW.status = 'Pending'; 
+END IF; 
+END$$ 
+ 
+DELIMITER ; 
+INSERT INTO payroll (date, net_salary, employee_id) 
+VALUES ('2025-03-30', 39000, 16);
