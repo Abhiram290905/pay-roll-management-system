@@ -103,3 +103,5 @@ VALUES (1200, 800, 21);
 INSERT INTO payroll (date, net_salary, employee_id) 
 VALUES ('2025-03-31', 30000, 21); 
 SELECT * FROM payroll WHERE employee_id = 21;
+
+ 
