@@ -12,3 +12,40 @@ END$$
 DELIMITER ; 
 INSERT INTO payroll (date, net_salary, employee_id) 
 VALUES ('2025-03-30', 39000, 16);
+
+
+CREATE TRIGGER trg_prevent_duplicate_attendance 
+BEFORE INSERT ON attendance 
+FOR EACH ROW 
+BEGIN 
+IF EXISTS ( 
+SELECT 1 FROM attendance 
+WHERE employee_id = NEW.employee_id AND date = NEW.date 
+) THEN 
+SIGNAL SQLSTATE '45000’ 
+SET MESSAGE_TEXT = 'Attendance already recorded for this date.'; 
+END IF; 
+END$$ 
+ 
+DELIMITER ; 
+INSERT INTO attendance (date, status, employee_id) 
+VALUES ('2025-04-07', 'Present', 14); 
+INSERT INTO attendance (date, status, employee_id) 
+VALUES ('2025-04-07', 'Present', 14);
+
+ 
+DELIMITER $$ 
+ 
+CREATE TRIGGER trg_check_overtime_hours 
+BEFORE INSERT ON overtime 
+FOR EACH ROW 
+BEGIN 
+16  
+IF NEW.hours_worked > 24 THEN 
+SIGNAL SQLSTATE '45000' 
+SET MESSAGE_TEXT = 'Overtime hours cannot exceed 24 in a day'; 
+END IF; 
+END$$ 
+ 
+DELIMITER ; 
+INSERT INTO overtime (hours_worked, overtime_pay, employee_id) VALUES (30, 5000, 17); 
