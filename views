@@ -11,3 +11,14 @@ FROM employee e
 JOIN department d ON e.department_id = d.department_id 
 JOIN supervisor s ON e.supervisor_id = s.supervisor_id; 
 SELECT *FROM view_employee_details
+ 
+CREATE VIEW view_payroll_summary AS 
+SELECT 
+e.employee_id, 
+CONCAT(e.first_name, ' ', e.last_name) AS employee_name, 
+p.date, 
+p.status, 
+p.net_salary 
+FROM payroll p 
+JOIN employee e ON p.employee_id = e.employee_id; 
+SELECT *FROM view_payroll_summary
