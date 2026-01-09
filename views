@@ -22,3 +22,12 @@ p.net_salary
 FROM payroll p 
 JOIN employee e ON p.employee_id = e.employee_id; 
 SELECT *FROM view_payroll_summary
+CREATE VIEW view_overtime_details AS 
+SELECT 
+e.employee_id, 
+CONCAT(e.first_name, ' ', e.last_name) AS employee_name, 
+o.hours_worked, 
+o.overtime_pay 
+FROM overtime o 
+JOIN employee e ON o.employee_id = e.employee_id; 
+SELECT *FROM view_overtime_details
