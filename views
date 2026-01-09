@@ -1,0 +1,13 @@
+ 
+CREATE VIEW view_employee_details AS 
+SELECT 
+e.employee_id, 
+CONCAT(e.first_name, ' ', e.last_name) AS full_name, 
+e.phone_no, 
+e.DOB, 
+d.department_name, 
+s.supervisor_name 
+FROM employee e 
+JOIN department d ON e.department_id = d.department_id 
+JOIN supervisor s ON e.supervisor_id = s.supervisor_id; 
+SELECT *FROM view_employee_details
