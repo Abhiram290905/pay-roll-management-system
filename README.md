@@ -32,3 +32,5 @@ Ensures data accuracy and consistency
 
 Use Case
 
+
+*it is the best for any companies or fields related to salary issue 
