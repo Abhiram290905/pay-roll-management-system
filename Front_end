@@ -1,0 +1,182 @@
+frontend
+
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Payroll Management System</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+    }
+    * { box-sizing: border-box; font-family: Arial, Helvetica, sans-serif; }
+    body { margin: 0; background: var(--bg); color: var(--text); }
+    header {
+      background: var(--primary);
+      color: #fff;
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header h1 { margin: 0; font-size: 20px; }
+    nav button {
+      background: #fff;
+      color: var(--primary);
+      border: none;
+      padding: 8px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .container { padding: 24px; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: var(--card);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+    }
+    .card h3 { margin-top: 0; }
+    .stat {
+      font-size: 28px;
+      font-weight: bold;
+      margin: 10px 0;
+      color: var(--primary);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+    }
+    table th, table td {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    table th { color: var(--muted); font-size: 14px; }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 6px;
+      margin-bottom: 12px;
+      border-radius: 6px;
+      border: 1px solid #d1d5db;
+    }
+    .btn {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .hidden { display: none; }
+    footer {
+      text-align: center;
+      padding: 16px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body><header>
+  <h1>Payroll Management System</h1>
+  <nav>
+    <button onclick="logout()">Logout</button>
+  </nav>
+</header><div class="container">
+  <!-- Dashboard -->
+  <div class="grid">
+    <div class="card">
+      <h3>Total Employees</h3>
+      <div class="stat" id="empCount">3</div>
+    </div>
+    <div class="card">
+      <h3>Total Monthly Payout</h3>
+      <div class="stat">₹ 1,50,000</div>
+    </div>
+    <div class="card">
+      <h3>Pending Salaries</h3>
+      <div class="stat">1</div>
+    </div>
+  </div>  <!-- Employee Table -->  <div class="card" style="margin-top:24px;">
+    <h3>Employee List</h3>
+    <table id="empTable">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Role</th>
+          <th>Salary (₹)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>101</td>
+          <td>Ravi Kumar</td>
+          <td>Developer</td>
+          <td>50,000</td>
+        </tr>
+        <tr>
+          <td>102</td>
+          <td>Anjali Sharma</td>
+          <td>HR</td>
+          <td>40,000</td>
+        </tr>
+        <tr>
+          <td>103</td>
+          <td>Suresh Rao</td>
+          <td>Tester</td>
+          <td>60,000</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>  <!-- Add Employee -->  <div class="card" style="margin-top:24px;">
+    <h3>Add Employee</h3>
+    <input type="text" id="name" placeholder="Employee Name" />
+    <input type="text" id="role" placeholder="Role" />
+    <input type="number" id="salary" placeholder="Salary" />
+    <button class="btn" onclick="addEmployee()">Add Employee</button>
+  </div>
+</div><footer>
+  © 2026 Payroll Management System | Frontend Demo
+</footer><script>
+  function addEmployee() {
+    const name = document.getElementById('name').value;
+    const role = document.getElementById('role').value;
+    const salary = document.getElementById('salary').value;
+
+    if (!name || !role || !salary) {
+      alert('Please fill all fields');
+      return;
+    }
+
+    const table = document.getElementById('empTable').getElementsByTagName('tbody')[0];
+    const row = table.insertRow();
+
+    row.insertCell(0).innerText = Math.floor(Math.random() * 1000);
+    row.insertCell(1).innerText = name;
+    row.insertCell(2).innerText = role;
+    row.insertCell(3).innerText = salary;
+
+    document.getElementById('empCount').innerText = table.rows.length;
+
+    document.getElementById('name').value = '';
+    document.getElementById('role').value = '';
+    document.getElementById('salary').value = '';
+  }
+
+  function logout() {
+    alert('Logged out (frontend only)');
+  }
+</script></body>
+</html>
